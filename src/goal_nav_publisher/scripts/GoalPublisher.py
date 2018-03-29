@@ -1,10 +1,18 @@
+import argparse
+
 import rospy
 import actionlib
 from geometry_msgs.msg import PoseStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseResult
 
 def main():
-    file = open("../data/example.goals",'r')
+    parser = argparse.ArgumentParser(description='Give the goal file')
+    parser.add_argument('--filename')
+    args = parser.parse_args()
+
+
+
+    file = open(args.filename,'r')
     rospy.init_node('goalpublisher_node', anonymous=True)
 
     pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
